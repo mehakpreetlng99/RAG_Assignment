@@ -1,0 +1,7 @@
+gradio
+chromadb
+openai
+python-dotenv
+langchain
+pypdf
+sentence-transformers
