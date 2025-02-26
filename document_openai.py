@@ -24,11 +24,11 @@ embedding_function = SentenceTransformerEmbeddingFunction(model_name="sentence-t
 user_query_history = {}
 
 def sanitize_collection_name(filename):
-    """Sanitize collection name to meet ChromaDB requirements."""
+    # Sanitize collection name to meet ChromaDB requirements.
     return re.sub(r"[^\w-]", "_", filename)[:63].strip("_")
 
 def process_and_store_pdf(pdf_path, collection_name):
-    """Process PDF, extract text, and store in ChromaDB."""
+    # Process PDF, extract text, and store in ChromaDB.
     loader = PyPDFLoader(pdf_path)
     documents = loader.load()
 
@@ -53,7 +53,7 @@ def process_and_store_pdf(pdf_path, collection_name):
     return len(chunks)  # Return processed chunk count
 
 def query_pdf_database(query, collection_name):
-    """Query the ChromaDB collection, retrieve relevant context, and use it to generate a response."""
+    # Query the ChromaDB collection, retrieve relevant context, and use it to generate a response.
     try:
         collection = client.get_collection(name=collection_name, embedding_function=embedding_function)
     except Exception:
@@ -95,7 +95,7 @@ def query_pdf_database(query, collection_name):
 
 
 def get_query_history(collection_name):
-    """Retrieve user query history for a specific collection."""
+    # Retrieve user query history for a specific collection.
     history = user_query_history.get(collection_name, [])
     if not history:
         return "No query history available for this document."
@@ -104,7 +104,7 @@ def get_query_history(collection_name):
     return formatted_history
 
 def process_pdf(files):
-    """Process multiple PDFs and create collections."""
+    # Process multiple PDFs and create collections.
     if not files:
         return "No files uploaded."
 
@@ -127,7 +127,7 @@ def process_pdf(files):
     return "\n".join(results)
 
 def query_uploaded_pdf(query, files):
-    """Query the latest uploaded PDF collection."""
+    # Query the latest uploaded PDF collection.
     if not files:
         return "No file uploaded for query."
 
@@ -138,7 +138,7 @@ def query_uploaded_pdf(query, files):
     return query_pdf_database(query, collection_name)
 
 def view_query_history(files):
-    """Retrieve the query history for the last uploaded PDF."""
+    # Retrieve the query history for the last uploaded PDF.
     if not files:
         return "No file uploaded."
 
